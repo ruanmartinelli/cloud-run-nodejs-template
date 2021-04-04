@@ -1,6 +1,6 @@
 # cloud-run-nodejs-template
 
-> A template for deploying Node.js applications on Google Cloud Run with Terraform.
+> A template for deploying Node.js applications on Google Cloud Run with Terraform and GitHub Actions.
 
 ## Prerequisites
 
@@ -8,11 +8,13 @@
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 - [Google Cloud account](https://console.cloud.google.com/getting-started) with billing set up
 
-## Set up deployment
+## Getting started
 
-Follow the steps below to set up your deployment for the first time.
+Follow the steps below to set up your project for the first time.
 
-1. Create a Google Cloud project:
+1. [Create a new repository from the template](https://github.com/ruanmartinelli/cloud-run-nodejs-template/generate). Clone it to your computer.
+
+2. Create a Google Cloud project:
 
 ```bash
 # Create project
@@ -22,7 +24,7 @@ gcloud projects create "PROJECT_ID" --name="PROJECT NAME"
 gcloud config set project "PROJECT_ID"
 ```
 
-2. Set up billing
+3. Set up billing
 
 ```bash
 # List billing accounts available
@@ -32,7 +34,7 @@ gcloud beta billing accounts list
 gcloud beta billing projects link "PROJECT_ID" --billing-account="BILLING_ACCOUNT_ID"
 ```
 
-3. Create a bucket to store the remote Terraform state and update `infra/backend.tf`:
+4. Create a bucket to store the remote Terraform state and update `infra/backend.tf`:
 
 ```bash
 # Create bucket
@@ -55,7 +57,7 @@ terraform {
 }
 ```
 
-4. Apply the Terraform configuration for the first time:
+5. Apply the Terraform configuration for the first time:
 
 ```bash
 cd infra
@@ -67,7 +69,7 @@ terraform plan -var project=PROJECT_ID
 terraform apply -var project=PROJECT_ID
 ```
 
-5. [Create GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
+6. [Create GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
 
 Create two GitHub secrets for your repository:
 
@@ -79,7 +81,7 @@ Your Google Cloud project ID.
 
 Key for the deployment service account. It was created by Terraform on the previous step. Run `terraform output deployment_sa_key` to display the value.
 
-6. Commit modified files
+7. Commit modified files
 
 ```bash
 git add .
@@ -89,7 +91,7 @@ git commit -m "update terraform config"
 git push
 ```
 
-7. Done 🎉
+8. Done 🎉
 
 ## Deploying the service
 
