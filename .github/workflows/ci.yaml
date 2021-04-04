@@ -26,10 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: |
-          echo "image_tag=gcr.io/${{ env.project_id }}/api:$GITHUB_SHA" >> $GITHUB_ENV
-          echo ${{env.IMAGE}}
-
       - uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
@@ -38,11 +34,11 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v1
 
-      # - run: gcloud --quiet auth configure-docker
+      - run: gcloud --quiet auth configure-docker
 
-      # - run: docker build --tag ${{ env.image_tag }} .
+      - run: docker build --tag ${{ env.IMAGE }} .
 
-      # - run: docker push ${{ env.image_tag }}
+      - run: docker push ${{ env.IMAGE }}
 
       # - run: terraform init
       #   working-directory: ./infra
