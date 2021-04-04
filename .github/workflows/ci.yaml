@@ -50,7 +50,10 @@ jobs:
           terraform plan \
             -var image=${{ env.IMAGE }} \
             -var project=${{ secrets.PROJECT_ID }}
-        
 
-      # - run: terraform apply -var="image=${{ env.image_tag }}" --auto-approve
-      #   working-directory: ./infra
+      - working-directory: ./infra
+        run: |-
+          terraform apply \
+            -var image=${{ env.IMAGE }} \
+            -var project=${{ secrets.PROJECT_ID }} \
+            --auto-approve
