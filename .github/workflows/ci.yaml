@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo "IMAGE=gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA" >> $GITHUB_ENV
+      - run: echo "IMAGE=gcr.io/${{ secrets.PROJECT_ID }}/${{ env.IMAGE_NAME }}:$GITHUB_SHA" >> $GITHUB_ENV
 
       - uses: google-github-actions/setup-gcloud@master
         with:
@@ -38,9 +38,9 @@ jobs:
 
       - run: gcloud --quiet auth configure-docker
 
-      - run: docker build --tag ${{ env.IMAGE }}:$GITHUB_SHA .
+      - run: docker build --tag ${{ env.IMAGE }} .
 
-      - run: docker push ${{ env.IMAGE }}:$GITHUB_SHA
+      - run: docker push ${{ env.IMAGE }}
 
       # - run: terraform init
       #   working-directory: ./infra
