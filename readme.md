@@ -1,8 +1,16 @@
 # cloud-run-nodejs-template
 
-> TBD
+> A template for deploying Node.js applications on Google Cloud Run with Terraform.
 
-## Setting up
+## Prerequisites
+
+- [Terraform CLI](https://www.terraform.io/downloads.html) v0.13+
+- [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
+- [Google Cloud account](https://console.cloud.google.com/getting-started) with billing set up
+
+## Set up deployment
+
+Follow the steps below to set up your deployment for the first time.
 
 1. Create a Google Cloud project:
 
@@ -82,6 +90,12 @@ git push
 ```
 
 7. Done 🎉
+
+## Deploying the service
+
+GitHub actions is configured to deploy a new image when a release is created.
+
+[Go here](https://github.com/ruanmartinelli/cloud-run-nodejs-template/releases/new) to create a new release and trigger a deployment.
 
 ## License
 
