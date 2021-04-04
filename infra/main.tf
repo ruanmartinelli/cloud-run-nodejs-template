@@ -29,6 +29,11 @@ resource "google_project_service" "container_registry_api" {
   disable_on_destroy = true
 }
 
+resource "google_project_service" "iam_api" {
+  service            = "iam.googleapis.com"
+  disable_on_destroy = true
+}
+
 # Cloud Run service
 
 resource "google_cloud_run_service" "run_service" {
