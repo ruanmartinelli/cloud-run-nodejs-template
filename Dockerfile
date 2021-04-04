@@ -1,5 +1,5 @@
 # Build
-FROM node:latest AS build
+FROM node:14 AS build
 
 WORKDIR /usr/src/app
 
@@ -8,7 +8,7 @@ COPY package*.json /usr/src/app/
 RUN npm ci --only=production
  
 # Run
-FROM node:lts-alpine
+FROM node:14-alpine
 
 USER node
 
