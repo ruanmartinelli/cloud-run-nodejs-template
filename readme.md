@@ -7,9 +7,11 @@
 1. Create a Google Cloud project:
 
 ```bash
-gcloud projects create "my-cool-project-9981" --name="my cool project"
+# Create project
+gcloud projects create "PROJECT_ID" --name="PROJECT NAME"
 
-gcloud config set project "my-cool-project-9981"
+# Set proejct as default
+gcloud config set project "PROJECT_ID"
 ```
 
 2. Set up billing
@@ -19,21 +21,24 @@ gcloud config set project "my-cool-project-9981"
 gcloud beta billing accounts list
 
 # Link billing account
-gcloud beta billing projects link my-cool-project-9981 --billing-account=000ECE-0E6BDE-77B963
+gcloud beta billing projects link "PROJECT_ID" --billing-account="BILLING_ACCOUNT_ID"
 ```
 
 3. Create a bucket to store the remote Terraform state and update `infra/backend.tf`:
 
 ```bash
-gsutil mb gs://tfstate-my-cool-project-9981
+# Create bucket
+gsutil mb gs://tfstate-PROJECT_ID
 ```
 
 ```diff
+# infra/backend.tf
+
 terraform {
   required_version = ">= 0.13"
 
 +   backend "gcs" {
-+     bucket = "tfstate-my-cool-project-9981"
++     bucket = "tfstate-PROJECT_ID"
 +   }
 
   required_providers {
@@ -49,9 +54,9 @@ cd infra
 
 terraform init
 
-terraform plan -var project=my-cool-project-9981
+terraform plan -var project=PROJECT_ID
 
-terraform apply -var project=my-cool-project-9981
+terraform apply -var project=PROJECT_ID
 ```
 
 5. [Create GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
