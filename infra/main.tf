@@ -6,6 +6,8 @@ locals {
   service_name = "test123"
 }
 
+# Providers
+
 provider "google" {
   project = local.project
 }
