@@ -1,8 +1,8 @@
 locals {
   project = var.project
-  image = var.image
-  
-  location = "us-central1"
+  image   = var.image
+
+  location     = "us-central1"
   service_name = "test123"
 }
 
@@ -15,17 +15,17 @@ provider "google" {
 # APIs
 
 resource "google_project_service" "run_api" {
-  service = "run.googleapis.com"
+  service            = "run.googleapis.com"
   disable_on_destroy = true
 }
 
 resource "google_project_service" "resource_manager_api" {
-  service = "cloudresourcemanager.googleapis.com"
+  service            = "cloudresourcemanager.googleapis.com"
   disable_on_destroy = true
 }
 
 resource "google_project_service" "container_registry_api" {
-  service = "containerregistry.googleapis.com"
+  service            = "containerregistry.googleapis.com"
   disable_on_destroy = true
 }
 
@@ -85,5 +85,5 @@ output "url" {
 
 output "deployment_sa_key" {
   sensitive = true
-  value = base64decode(google_service_account_key.deployment_sa_key.private_key)
+  value     = base64decode(google_service_account_key.deployment_sa_key.private_key)
 }
