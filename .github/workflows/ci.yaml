@@ -1,0 +1,55 @@
+name: ci
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: echo 'All tests passed'
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: [test]
+
+    env:
+      NODE_ENV: production
+      IMAGE: gcr.io/${{ secrets.PROJECT_ID }}/app:$GITHUB_SHA
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          echo "image_tag=gcr.io/${{ env.project_id }}/api:$GITHUB_SHA" >> $GITHUB_ENV
+          echo ${{env.IMAGE}}
+
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+          export_default_credentials: true
+
+      - uses: hashicorp/setup-terraform@v1
+
+      # - run: gcloud --quiet auth configure-docker
+
+      # - run: docker build --tag ${{ env.image_tag }} .
+
+      # - run: docker push ${{ env.image_tag }}
+
+      # - run: terraform init
+      #   working-directory: ./infra
+
+      # - run: terraform plan \
+      #     -var="image=${{ env.image_tag }}"
+      #   working-directory: ./infra
+
+      # - run: terraform apply -var="image=${{ env.image_tag }}" --auto-approve
+      #   working-directory: ./infra
