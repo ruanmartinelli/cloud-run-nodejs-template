@@ -1,5 +1,5 @@
 # Build
-FROM node:14 AS build
+FROM node:14-stretch AS build
 
 WORKDIR /usr/src/app
 
