@@ -1,9 +1,9 @@
 locals {
-  project = var.project
-  image   = var.image
+  project  = var.project
+  image    = var.image
+  location = var.location
 
-  location     = "us-central1"
-  service_name = "test123"
+  service_name = "app"
 }
 
 # Providers
